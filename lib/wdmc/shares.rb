@@ -32,9 +32,8 @@ module Wdmc
         if share['share_access']
           puts "Permissions\t\t ".upcase.color(:magenta)
           share['share_access'].map do |access|
-            puts "\s- #{access['username']}\s:\s" + access['access'].color(:green) if access['access'] == 'RW'
-            puts "\s- #{access['username']}\s:\s" + access['access'].color(:cyan) if access['access'] == 'RO'
-            puts
+            puts "\s#{access['username']}\t\t\t:\s" + access['access'].color(:green) if access['access'] == 'RW'
+            puts "\s#{access['username']}\t\t\t:\s" + access['access'].color(:cyan) if access['access'] == 'RO'
           end
         end
       end

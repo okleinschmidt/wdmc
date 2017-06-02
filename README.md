@@ -9,7 +9,7 @@ follows:
 
 ```shell
 # clone git repository
-$ git clone git@git.datenreisende.org:peek/wdmc.git
+$ git clone git@github.com:okleinschmidt/wdmc.git
 
 # enter wdmc source directory
 $ cd wdmc
