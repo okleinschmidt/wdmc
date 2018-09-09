@@ -195,19 +195,23 @@ module Wdmc
     private
 
     def get(url, headers={}, &block)
-      RestClient.get(url, headers)
+      execute_request(:method => :get, :url => url, :headers => headers, &block)
     end
 
     def post(url, payload, headers={}, &block)
-      RestClient.post(url, payload, headers, &block)
+      execute_request(:method => :post, :url => url, :payload => payload, :headers => headers, &block)
     end
 
     def put(url, payload, headers={}, &block)
-      RestClient.put(url, payload, headers, &block)
+      execute_request(:method => :put, :url => url, :payload => payload, :headers => headers, &block)
     end
 
     def delete(url, headers={}, &block)
-      RestClient.delete(url, headers, &block)
+      execute_request(:method => :delete, :url => url, :headers => headers, &block)
+    end
+
+    def execute_request(args, &block)
+      RestClient::Request.execute(args, &block)
     end
 
   end
