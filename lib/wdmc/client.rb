@@ -211,6 +211,7 @@ module Wdmc
     end
 
     def execute_request(args, &block)
+      args[:verify_ssl] = @config['validate_cert'].nil? ? true : @config['validate_cert']
       RestClient::Request.execute(args, &block)
     end
 
