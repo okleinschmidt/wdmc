@@ -28,7 +28,11 @@ Create YAML file in your $HOME: ~/.wdmc.yml
 url: http://192.168.0.10
 username: admin
 password: super-secure-password
+validate_cert: true | false (default: true)
 ```
+If *validate_cert* is _true_ or unset, then the connection will fail if
+an HTTPS URL is specified and the server certificate is not valid.
+
 I gave admin permission to my user account:
 
 ```shell
