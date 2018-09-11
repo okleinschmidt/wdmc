@@ -43,17 +43,17 @@ module Wdmc
     # device
     def system_information
       response = get("#{@config['url']}/api/2.1/rest/system_information", {accept: :json, :cookies => cookies})
-      eval(response)[:system_information]
+      JSON.parse(response, :symbolize_names => true)[:system_information]
     end
 
     def system_state
       response = get("#{@config['url']}/api/2.1/rest/system_state", {accept: :json, :cookies => cookies})
-      eval(response)[:system_state]
+      JSON.parse(response, :symbolize_names => true)[:system_state]
     end
 
     def firmware
       response = get("#{@config['url']}/api/2.1/rest/firmware_info", {accept: :json, :cookies => cookies})
-      eval(response)[:firmware_info]
+      JSON.parse(response, :symbolize_names => true)[:firmware_info]
     end
 
     def device_description
@@ -63,14 +63,13 @@ module Wdmc
 
     def network
       response = get("#{@config['url']}/api/2.1/rest/network_configuration", {accept: :json, :cookies => cookies})
-      eval(response)[:network_configuration]
-      #JSON.parse(response)['network_configuration']
+      JSON.parse(response, :symbolize_names => true)[:network_configuration]
     end
 
     # storage
     def storage_usage
       response = get("#{@config['url']}/api/2.1/rest/storage_usage", {accept: :json, :cookies => cookies})
-      eval(response)[:storage_usage]
+      JSON.parse(response, :symbolize_names => true)[:storage_usage]
     end
 
     ## working with shares
@@ -145,7 +144,7 @@ module Wdmc
     # Get TimeMachine Configuration
     def get_tm
       response = get("#{@config['url']}/api/2.1/rest/time_machine", {accept: :json, :cookies => cookies})
-      eval(response)[:time_machine]
+      JSON.parse(response, :symbolize_names => true)[:time_machine]
     end
 
     # Set TimeMachine Configuration
@@ -158,7 +157,7 @@ module Wdmc
     # Get all users
     def all_users
       response = get("#{@config['url']}/api/2.1/rest/users", {accept: :json, :cookies => cookies})
-      eval(response)[:users][:user]
+      JSON.parse(response, :symbolize_names => true)[:users][:user]
     end
 
     # find a user by name
