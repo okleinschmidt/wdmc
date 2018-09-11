@@ -59,7 +59,7 @@ module Wdmc
 
     def device_description
       response = get("#{@config['url']}/api/2.1/rest/device_description", {accept: :json, :cookies => cookies})
-      JSON.parse(response)['device_description']
+      JSON.parse(response, :symbolize_names => true)[:device_description]
     end
 
     def network
