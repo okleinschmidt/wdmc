@@ -8,6 +8,7 @@ module Wdmc
 
     def initialize(*args)
       @config = Wdmc::Config.load
+      @config[:verify_ssl] = (@config['validate_cert'].nil? or @config['validate_cert'] != false) ? true : false
       @cookiefile = File.join(ENV['HOME'], '.wdmc_cookie')
       login
     end
@@ -16,7 +17,19 @@ module Wdmc
       @url = @config['url']
       @username = @config['username']
       @password = @config['password']
-      api = get("#{@url}/api/2.1/rest/local_login?username=#{@username}&password=#{@password}")
+
+      begin
+        api = get("#{@url}/api/2.1/rest/local_login?username=#{@username}&password=#{@password}")
+      rescue RestClient::SSLCertificateNotVerified => e
+        if @config['validate_cert'] == 'warn'
+          $stderr.puts("Warning: #{ e.class.name}: #{ e.message } for host URL: '#{ @url }'")
+          @config[:verify_ssl] = false
+          api = get("#{@url}/api/2.1/rest/local_login?username=#{@username}&password=#{@password}")
+        else
+          raise(e)
+        end
+      end
+
       cookie = api.cookies
       File.write(@cookiefile, api.cookies)
     end
@@ -211,7 +224,7 @@ module Wdmc
     end
 
     def execute_request(args, &block)
-      args[:verify_ssl] = @config['validate_cert'].nil? ? true : @config['validate_cert']
+      args[:verify_ssl] = @config[:verify_ssl]
       RestClient::Request.execute(args, &block)
     end
 
