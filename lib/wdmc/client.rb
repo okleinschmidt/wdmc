@@ -9,6 +9,7 @@ module Wdmc
     def initialize(*args)
       @config = Wdmc::Config.load
       @config[:verify_ssl] = (@config['validate_cert'].nil? or @config['validate_cert'] != false) ? true : false
+      @config['api_net_nl_bug'] = @config['api_net_nl_bug'].nil? ? false : @config['api_net_nl_bug']
       @cookiefile = File.join(ENV['HOME'], '.wdmc_cookie')
       login
     end
@@ -63,7 +64,21 @@ module Wdmc
 
     def network
       response = get("#{@config['url']}/api/2.1/rest/network_configuration", {accept: :json, :cookies => cookies})
-      JSON.parse(response, :symbolize_names => true)[:network_configuration]
+      if @config['api_net_nl_bug']
+        response = response.delete("\n")
+      end
+      begin
+        JSON.parse(response, :symbolize_names => true)[:network_configuration]
+      rescue JSON::ParserError => e
+        unless @config['api_net_nl_bug']
+          $stderr.puts(<<~EOL.tr("\n", " ")
+             Warning: Consider adding 'api_net_nl_bug: true' to your configuration file
+             to mitigate a known bug retrieving network configuration data.
+             EOL
+          )
+        end
+        raise e
+      end
     end
 
     # storage
