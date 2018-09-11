@@ -91,14 +91,14 @@ module Wdmc
     # get all shares
     def all_shares
       response = get("#{@config['url']}/api/2.1/rest/shares", {accept: :json, :cookies => cookies})
-      JSON.parse(response)['shares']['share']
+      JSON.parse(response, :symbolize_names => true)[:shares][:share]
     end
 
     # find a share by name
     def find_share( name )
       result = []
       all_shares.each do |share|
-        result.push share if share['share_name'] == name
+        result.push share if share[:share_name] == name
       end
       return result
     end
@@ -107,7 +107,7 @@ module Wdmc
     def share_exists?( name )
       result = []
       all_shares.each do |share|
-        result.push share['share_name'] if share['share_name'].include?(name)
+        result.push share[:share_name] if share[:share_name].include?(name)
       end
       return result
     end
