@@ -216,7 +216,7 @@ module Wdmc
     def volumes
       login
       response = get("#{@config['url']}/api/2.1/rest/volumes", {accept: :json, :cookies => cookies})
-      volumes = JSON.parse(response)['volumes']['volume']
+      JSON.parse(response, :symbolize_names => true)[:volumes][:volume]
     end
 
     private
