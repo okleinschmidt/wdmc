@@ -29,6 +29,7 @@ url: http://192.168.0.10
 username: admin
 password: super-secure-password
 validate_cert: true | false | warn (optional, default: true)
+api_net_nl_bug: true | false (optional, default: false)
 ```
 The value of *validate_cert* is relevant only for HTTPS URLs:
   - If not specified or set to _true_, then an invalid certificate will
@@ -37,6 +38,9 @@ The value of *validate_cert* is relevant only for HTTPS URLs:
   - If set to _warn_, then an invalid certificate will cause a
   warning message to be emitted and for certificate validation to
   be deactivated for the remainder of the operation.
+
+Set _api_net_nl_bug_ to _true_ to avoid crashes caused by newline
+characters in DNS server data in the API response from your server.
 
 I gave admin permission to my user account:
 
