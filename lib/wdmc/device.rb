@@ -76,7 +76,7 @@ module Wdmc
       puts "\sMAC Address\t\t: ".color(:whitesmoke) + @system_information[:mac_address]
       puts "\sNetmask\t\t: ".color(:whitesmoke) + @network[:netmask]
       puts "\sGateway\t\t: ".color(:whitesmoke) + @network[:gateway]
-      puts "\sDNS Servers\t\t: ".color(:whitesmoke) + "#{@network[:dns0].strip}, #{@network[:dns1].strip}, #{@network[:dns2]}"
+      puts "\sDNS Servers\t\t: ".color(:whitesmoke) + "#{@network[:dns0]}, #{@network[:dns1]}, #{@network[:dns2]}"
     end
 
     desc 'state', 'Device state'
