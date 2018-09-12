@@ -134,7 +134,7 @@ module Wdmc
     # get the specified share access
     def get_acl( name )
       response = get("#{@config['url']}/api/2.1/rest/share_access/#{name}", {accept: :json, :cookies => cookies})
-      JSON.parse(response)['share_access_list']
+      JSON.parse(response, :symbolize_names => true)[:share_access_list]
     end
 
     def set_acl( data )
@@ -150,7 +150,7 @@ module Wdmc
     def delete_acl( data )
       # well, I know the code below is not very pretty...
       # if someone knows how this shitty delete with rest-client will work
-      response = delete("#{@config['url']}/api/2.1/rest/share_access?share_name=#{data['share_name']}&username=#{data['username']}", {accept: :json, :cookies => cookies})
+      response = delete("#{@config['url']}/api/2.1/rest/share_access?share_name=#{data[:share_name]}&username=#{data[:username]}", {accept: :json, :cookies => cookies})
       return response
     end
     ## ACL end

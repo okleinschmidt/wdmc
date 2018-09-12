@@ -24,17 +24,17 @@ module Wdmc
       abort "\nShare does not exist: ".color(:yellow) + "#{name}".color(:cyan) unless share_exists.include?( name )
       begin
         data = {
-          'share_name' => name,
-          'username' => options['user'],
-          'access' => options['access']
+          :share_name => name,
+          :username => options['user'],
+          :access => options['access']
         }
         puts "Set ACL:\s".color(:whitesmoke) + "OK".color(:green) if @wdmc.set_acl( data )
         share = @wdmc.get_acl( name )
-        share['share_access'].map do |access|
-          puts "\s- Username\t:\s".color(:whitesmoke) + access['username']
-          puts "\s- User ID\t:\s".color(:whitesmoke) + access['user_id']
-          puts "\s- Access\t:\s".color(:whitesmoke) + access['access'].color(:green) if access['access'] == 'RW'
-          puts "\s- Access\t:\s".color(:whitesmoke) + access['access'].color(:yellow) if access['access'] == 'RO'
+        share[:share_access].map do |access|
+          puts "\s- Username\t:\s".color(:whitesmoke) + access[:username]
+          puts "\s- User ID\t:\s".color(:whitesmoke) + access[:user_id]
+          puts "\s- Access\t:\s".color(:whitesmoke) + access[:access].color(:green) if access[:access] == 'RW'
+          puts "\s- Access\t:\s".color(:whitesmoke) + access[:access].color(:yellow) if access[:access] == 'RO'
           puts
         end
       rescue RestClient::ExceptionWithResponse => e
@@ -50,17 +50,17 @@ module Wdmc
       abort "\nShare does not exist: ".color(:yellow) + "#{name}".color(:cyan) unless share_exists.include?( name )
       begin
         data = {
-          'share_name' => name,
-          'username' => options['user'],
-          'access' => options['access']
+          :share_name => name,
+          :username => options['user'],
+          :access => options['access']
         }
         puts "Modify ACL:\s".color(:whitesmoke) + "OK".color(:green) if @wdmc.modify_acl( data )
         share = @wdmc.get_acl( name )
-        share['share_access'].map do |access|
-          puts "\s- Username\t:\s".color(:whitesmoke) + access['username']
-          puts "\s- User ID\t:\s".color(:whitesmoke) + access['user_id']
-          puts "\s- Access\t:\s".color(:whitesmoke) + access['access'].color(:green) if access['access'] == 'RW'
-          puts "\s- Access\t:\s".color(:whitesmoke) + access['access'].color(:yellow) if access['access'] == 'RO'
+        share[:share_access].map do |access|
+          puts "\s- Username\t:\s".color(:whitesmoke) + access[:username]
+          puts "\s- User ID\t:\s".color(:whitesmoke) + access[:user_id]
+          puts "\s- Access\t:\s".color(:whitesmoke) + access[:access].color(:green) if access[:access] == 'RW'
+          puts "\s- Access\t:\s".color(:whitesmoke) + access[:access].color(:yellow) if access[:access] == 'RO'
           puts
         end
       rescue RestClient::ExceptionWithResponse => e
@@ -76,8 +76,8 @@ module Wdmc
       abort "\nShare does not exist: ".color(:yellow) + "#{name}".color(:cyan) unless share_exists.include?( name )
       begin
         data = {
-          'share_name' => name,
-          'username' => options['user']
+          :share_name => name,
+          :username => options['user']
         }
         unless options['force']
           puts "\nYou are going to delete #{options['access']} access for user #{options['user']} to #{name}".color(:orange)
@@ -85,11 +85,11 @@ module Wdmc
         end
         puts "Remove ACL:\s".color(:whitesmoke) + "OK".color(:green) if @wdmc.delete_acl( data )
         share = @wdmc.get_acl( name )
-        share['share_access'].map do |access|
-          puts "\s- Username\t:\s".color(:whitesmoke) + access['username']
-          puts "\s- User ID\t:\s".color(:whitesmoke) + access['user_id']
-          puts "\s- Access\t:\s".color(:whitesmoke) + access['access'].color(:green) if access['access'] == 'RW'
-          puts "\s- Access\t:\s".color(:whitesmoke) + access['access'].color(:yellow) if access['access'] == 'RO'
+        share[:share_access].map do |access|
+          puts "\s- Username\t:\s".color(:whitesmoke) + access[:username]
+          puts "\s- User ID\t:\s".color(:whitesmoke) + access[:user_id]
+          puts "\s- Access\t:\s".color(:whitesmoke) + access[:access].color(:green) if access[:access] == 'RW'
+          puts "\s- Access\t:\s".color(:whitesmoke) + access[:access].color(:yellow) if access[:access] == 'RO'
           puts
         end
       rescue RestClient::ExceptionWithResponse => e
