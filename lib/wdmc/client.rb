@@ -59,7 +59,7 @@ module Wdmc
 
     def device_description
       response = get("#{@config['url']}/api/2.1/rest/device_description", {accept: :json, :cookies => cookies})
-      JSON.parse(response)['device_description']
+      JSON.parse(response, :symbolize_names => true)[:device_description]
     end
 
     def network
@@ -91,14 +91,14 @@ module Wdmc
     # get all shares
     def all_shares
       response = get("#{@config['url']}/api/2.1/rest/shares", {accept: :json, :cookies => cookies})
-      JSON.parse(response)['shares']['share']
+      JSON.parse(response, :symbolize_names => true)[:shares][:share]
     end
 
     # find a share by name
     def find_share( name )
       result = []
       all_shares.each do |share|
-        result.push share if share['share_name'] == name
+        result.push share if share[:share_name] == name
       end
       return result
     end
@@ -107,7 +107,7 @@ module Wdmc
     def share_exists?( name )
       result = []
       all_shares.each do |share|
-        result.push share['share_name'] if share['share_name'].include?(name)
+        result.push share[:share_name] if share[:share_name].include?(name)
       end
       return result
     end
@@ -134,7 +134,7 @@ module Wdmc
     # get the specified share access
     def get_acl( name )
       response = get("#{@config['url']}/api/2.1/rest/share_access/#{name}", {accept: :json, :cookies => cookies})
-      JSON.parse(response)['share_access_list']
+      JSON.parse(response, :symbolize_names => true)[:share_access_list]
     end
 
     def set_acl( data )
@@ -150,7 +150,7 @@ module Wdmc
     def delete_acl( data )
       # well, I know the code below is not very pretty...
       # if someone knows how this shitty delete with rest-client will work
-      response = delete("#{@config['url']}/api/2.1/rest/share_access?share_name=#{data['share_name']}&username=#{data['username']}", {accept: :json, :cookies => cookies})
+      response = delete("#{@config['url']}/api/2.1/rest/share_access?share_name=#{data[:share_name]}&username=#{data[:username]}", {accept: :json, :cookies => cookies})
       return response
     end
     ## ACL end
@@ -216,7 +216,7 @@ module Wdmc
     def volumes
       login
       response = get("#{@config['url']}/api/2.1/rest/volumes", {accept: :json, :cookies => cookies})
-      volumes = JSON.parse(response)['volumes']['volume']
+      JSON.parse(response, :symbolize_names => true)[:volumes][:volume]
     end
 
     private

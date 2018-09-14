@@ -45,7 +45,7 @@ module Wdmc
     desc 'info', 'Basic information'
     def info
       puts "Device Information".upcase.color(:magenta)
-      puts "\sDevice Name\t\t: ".color(:whitesmoke) + @device_description['machine_name']
+      puts "\sDevice Name\t\t: ".color(:whitesmoke) + @device_description[:machine_name]
       puts "\sModel / Number\t\t: ".color(:whitesmoke) + "#{@system_information[:model_name]} " + @system_information[:model_number]
       puts "\sSerial Number\t\t: ".color(:whitesmoke) + @system_information[:serial_number]
       puts "\sDrive Number Serial\t: ".color(:whitesmoke) + @system_information[:master_drive_serial_number]

@@ -15,7 +15,7 @@ module Wdmc
       shares = @wdmc.all_shares
       puts "Available Shares".upcase.color(:magenta)
       shares.each do |share|
-        puts "\s- #{share['share_name']}"
+        puts "\s- #{share[:share_name]}"
       end
     end
 
@@ -25,15 +25,15 @@ module Wdmc
       share_exists = @wdmc.share_exists?( name )
       abort "\nShare does not exist: ".color(:yellow) + "#{name}".color(:cyan) unless share_exists.include?( name )
       shares.each do |share|
-        puts "Name:\s".upcase.color(:magenta) + share['share_name']
-        puts "\sRemote Access\t\t: ".color(:whitesmoke) + "#{share['remote_access']}"
-        puts "\sPublic Access\t\t: ".color(:whitesmoke) + "#{share['public_access']}"
-        puts "\sMedia Serving\t\t: ".color(:whitesmoke) + "#{share['media_serving']}"
-        if share['share_access']
+        puts "Name:\s".upcase.color(:magenta) + share[:share_name]
+        puts "\sRemote Access\t\t: ".color(:whitesmoke) + "#{share[:remote_access]}"
+        puts "\sPublic Access\t\t: ".color(:whitesmoke) + "#{share[:public_access]}"
+        puts "\sMedia Serving\t\t: ".color(:whitesmoke) + "#{share[:media_serving]}"
+        if share[:share_access]
           puts "Permissions\t\t ".upcase.color(:magenta)
-          share['share_access'].map do |access|
-            puts "\s#{access['username']}\t\t\t:\s" + access['access'].color(:green) if access['access'] == 'RW'
-            puts "\s#{access['username']}\t\t\t:\s" + access['access'].color(:cyan) if access['access'] == 'RO'
+          share[:share_access].map do |access|
+            puts "\s#{access[:username]}\t\t\t:\s" + access[:access].color(:green) if access[:access] == 'RW'
+            puts "\s#{access[:username]}\t\t\t:\s" + access[:access].color(:cyan) if access[:access] == 'RO'
           end
         end
       end
