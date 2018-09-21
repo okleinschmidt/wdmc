@@ -45,7 +45,7 @@ describe Wdmc::Client do
       ['firmware'],
       ['device_description'],
       ['network'],
-      # ['storage_usage'],
+      ['storage_usage'],
       ['get_tm'],
 
   )
