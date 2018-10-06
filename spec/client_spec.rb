@@ -70,11 +70,11 @@ describe Wdmc::Client do
       end
     end
 
-    context 'with a share that does have an ACL as the first argument' do
-      # it 'should behave like other methods that return a hash with symbols as keys' do
-        hash_w_symbol_keys(['get_acl', share_w_acl])
-      # end
-    end
+    # context 'with a share that does have an ACL as the first argument' do
+    #   # it 'should behave like other methods that return a hash with symbols as keys' do
+    #     hash_w_symbol_keys(['get_acl', share_w_acl])
+    #   # end
+    # end
 
   end
 
