@@ -64,17 +64,16 @@ describe Wdmc::Client do
       end
     end
 
-    context 'with a share that does NOT have ACLs as the first argument' do
+    context 'with the name of a share that does NOT have ACLs' do
       it 'should return HTTP 404 not found' do
         expect {subject.send('get_acl', share_no_acl)}.to raise_error(RestClient::Exception, /404/)
       end
     end
 
-    # context 'with a share that does have an ACL as the first argument' do
-    #   # it 'should behave like other methods that return a hash with symbols as keys' do
-    #     hash_w_symbol_keys(['get_acl', share_w_acl])
-    #   # end
-    # end
+    context 'with the name of a share that DOES have an ACL',
+            :skip => (ENV['acl_share'] ? nil : 'reason: to enable this test, set ENV["acl_share"] to the name of a share that has ACLs') do
+        hash_w_symbol_keys(['get_acl', ENV['acl_share']])
+    end
 
   end
 
