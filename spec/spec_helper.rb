@@ -2,7 +2,6 @@ require 'rspec'
 require 'wdmc'
 
 def share_no_acl; '_'; end
-def share_w_acl; 'Users'; end
 
 def keys_from_hash_hierarchy(hierarchy)
   hierarchy.each_with_object([]) do | (k, v), keys |
